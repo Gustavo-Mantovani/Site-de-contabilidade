@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educação Financeira</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #f5f5f5;
+      text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    p {
+      font-size: 1.2rem;
+      color: #e0e0e0;
+    }
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .calculator {
+      background: #1c2833;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+      width: 320px;
+      text-align: center;
+    }
+    .calculator h2 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      color: #4fb4d8;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #f0f0f0;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: none;
+      background: #f5f5f5;
+      font-size: 1rem;
+      color: #333;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 5px;
+      border: none;
+      background: #4fb4d8;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #3586a4;
+    }
+    #result {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #4CAF50;
+      font-weight: bold;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 5px;
+    }
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <h1>Educação Financeira</h1>
+  <p>Calculadoras para ajudar na sua vida financeira!</p>
+</header>
+
+<main>
+  <!-- Cálculo de Juros Compostos -->
+  <div class="calculator">
+    <h2>Juros Compostos</h2>
+    <label for="capital">Capital Inicial (R$):</label>
+    <input type="number" id="capital" placeholder="Ex: 1000">
+    
+    <label for="taxa">Taxa de Juros (% ao mês):</label>
+    <input type="number" id="taxa" placeholder="Ex: 5">
+    
+    <label for="periodo">Período (meses):</label>
+    <input type="number" id="periodo" placeholder="Ex: 12">
+    
+    <button onclick="calcularJuros()">Calcular</button>
+    <div id="result-juros">Resultado aparecerá aqui</div>
+  </div>
+
+  <!-- Cálculo de Parcelamento -->
+  <div class="calculator">
+    <h2>Simulador de Parcelamento</h2>
+    <label for="total">Valor Total (R$):</label>
+    <input type="number" id="total" placeholder="Ex: 5000">
+    
+    <label for="parcelas">Número de Parcelas:</label>
+    <input type="number" id="parcelas" placeholder="Ex: 12">
+    
+    <button onclick="calcularParcelamento()">Calcular</button>
+    <div id="result-parcelamento">Resultado aparecerá aqui</div>
+  </div>
+
+  <!-- Cálculo de Imposto -->
+  <div class="calculator">
+    <h2>Cálculo de Imposto (IRPF)</h2>
+    <label for="renda">Renda Mensal (R$):</label>
+    <input type="number" id="renda" placeholder="Ex: 3000">
+    
+    <button onclick="calcularImposto()">Calcular</button>
+    <div id="result-imposto">Resultado aparecerá aqui</div>
+  </div>
+</main>
+
+<footer>
+  <p>Desenvolvido com ❤️ para facilitar suas finanças!</p>
+</footer>
+
+<script>
+  function calcularJuros() {
+    const capital = parseFloat(document.getElementById('capital').value);
+    const taxa = parseFloat(document.getElementById('taxa').value) / 100;
+    const periodo = parseInt(document.getElementById('periodo').value);
+    if (!isNaN(capital) && !isNaN(taxa) && !isNaN(periodo)) {
+      const montante = capital * Math.pow((1 + taxa), periodo);
+      document.getElementById('result-juros').textContent = `Montante Final: R$ ${montante.toFixed(2)}`;
+    } else {
+      document.getElementById('result-juros').textContent = 'Por favor, insira valores válidos.';
+    }
+  }
+
+  function calcularParcelamento() {
+    const total = parseFloat(document.getElementById('total').value);
+    const parcelas = parseInt(document.getElementById('parcelas').value);
+    if (!isNaN(total) && !isNaN(parcelas) && parcelas > 0) {
+      const valorParcela = total / parcelas;
+      document.getElementById('result-parcelamento').textContent = `Valor de cada parcela: R$ ${valorParcela.toFixed(2)}`;
+    } else {
+      document.getElementById('result-parcelamento').textContent = 'Por favor, insira valores válidos.';
+    }
+  }
+
+  function calcularImposto() {
+    const renda = parseFloat(document.getElementById('renda').value);
+    let imposto = 0;
+    if (!isNaN(renda)) {
+      if (renda <= 1903.98) {
+        imposto = 0;
+      } else if (renda <= 2826.65) {
+        imposto = renda * 0.075 - 142.80;
+      } else if (renda <= 3751.05) {
+        imposto = renda * 0.15 - 354.80;
+      } else if (renda <= 4664.68) {
+        imposto = renda * 0.225 - 636.13;
+      } else {
+        imposto = renda * 0.275 - 869.36;
+      }
+      document.getElementById('result-imposto').textContent = `Imposto a pagar: R$ ${imposto.toFixed(2)}`;
+    } else {
+      document.getElementById('result-imposto').textContent = 'Por favor, insira valores válidos.';
+    }
+  }
+</script>
+
+</body>
+</html>
